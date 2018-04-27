@@ -1,0 +1,130 @@
+<div class="container top17">
+  <div class="row no-gutter">
+    <div class="col-md-offset-1 col-md-8 col-md-offset-1">
+      <form ng-submit="filterEvents()">
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1"><i class="fas fa-search" aria-hidden="true"></i></span>
+          <input type="text" class="form-control" placeholder="Event search" aria-describedby="basic-addon1" ng-model="filter"></input>
+          <span ng-show="filter.length" class="input-group-addon" id="basic-addon1">
+              <i class="fas fa-times" aria-hidden="true" ng-click="clearFilter()"></i>
+          </span>
+          <span class="input-group-addon btn" id="refresh-addon" ng-click="filterEvents()">
+             <i class="fas fa-sync" aria-hidden="true"></i>&nbsp;Filter Events
+          </span>
+          <button class="btn btn-primary pull-right" type="button" ng-click="switch_view()">
+              <i class="fas fa-times" aria-hidden="true"></i>&nbsp;{{ switch_button }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row no-gutter top25">
+    <div class="col-md-offset-1 col-md-10 col-md-offset-1 panel panel-primary" style="padding: 0;">
+      <table id="event-table" class="table table-responsive table-hover text-center" style="margin:0;">
+        <thead>
+          <tr ng-show="all_events">
+          <th class="text-center">
+              <div class="input-group">
+                <input type="text" placeholder="Number Filter" class="form-control" ng-model="number_filter" />
+                  <span ng-show="number_filter.length" class="input-group-addon btn" ng-click="number_filter=''">
+                    <i class="fas fa-times" aria-hidden="true" ></i>
+                  </span>
+                </input>
+              </div>
+            </th>
+            <th class="text-center">
+              <div class="input-group">
+                <input type="text" placeholder="Name Filter" class="form-control" ng-model="name_filter" />
+                  <span ng-show="name_filter.length" class="input-group-addon btn" ng-click="name_filter=''">
+                    <i class="fas fa-times" aria-hidden="true" ></i>
+                  </span>
+                </input>
+              </div>
+            </th>
+            <th class="text-center">
+              <div class="input-group">
+                <input type="text" placeholder="Description Filter" class="form-control" ng-model="description_filter" />
+                <span ng-show="description_filter.length" class="input-group-addon btn" ng-click="description_filter=''">
+                  <i class="fas fa-times" aria-hidden="true" ></i>
+                </span>
+              </div>
+            </th>
+            <th class="text-center">
+              <div class="input-group">
+                <input type="text" list="categories" ng-model="category_filter" placeholder="Catagory Filter" class="form-control"/>
+                <datalist id="categories">
+                  <option>RPG</option>
+                  <option>LARP</option>
+                  <option>Tabletop</option>
+                  <option>Miniature</option>
+                  <option>Miniature</option>
+                  <option>CCG/TCG</option>
+                  <option>Origins University</option>
+                  <option>Eclectics</option>
+                </datalist>
+                <span ng-show="category_filter.length" class="input-group-addon btn" ng-click="category_filter=''">
+                  <i class="fas fa-times" aria-hidden="true" ></i>
+                </span>
+
+              </div>
+            </th>
+            <th class="text-center">
+              <div class="input-group" format="L HH:00" moment-picker="start_date"
+                   min-view="month" max-view="hour" today="false" min-date="minDate" max-date="maxDate">
+                <input id="start_date" class="form-control" ng-model="start_date"
+                       ng-model-options="{ updateOn: 'blur' }" placeholder="Filter Date">
+                  <span class="input-group-addon"><i class="fas fa-calendar" aria-hidden="true"></i></span>
+                </input>
+              </div>
+            </th>
+            <th class="text-center">
+              <div class="input-group" format="L HH:00" moment-picker="end_date"
+                   min-view="month" max-view="hour" today="false" min-date="minDate" max-date="maxDate"> 
+                <input id="end_date" class="form-control" ng-model="end_date"
+                       ng-model-options="{ updateOn: 'blur' }" placeholder="Filter Date">
+                  <span class="input-group-addon"><i class="fas fa-calendar" aria-hidden="true"></i></span>
+                </input>
+              </div>
+            </th>
+          </tr>
+          <tr>
+            <th class="text-center">Number</th>
+            <th class="text-center">Name</th>
+            <th class="text-center">Descripiton</th>
+            <th class="text-center">Category</th>
+            <th class="text-center">Start</th>
+            <th class="text-center">End</th>
+          </tr>
+        </thead>
+
+        <tr ng-repeat="event in results" ng-click="showEvent(event)">
+          <td>{{event.number}}</td>
+          <td>{{event.name | strtruncate:false:20 }}</a></td>
+          <td>{{event.description | strtruncate:false:30 }}</td>
+          <td>{{event.category}}</td>
+          <td>{{event.start_date | date : 'short'}}</td>
+          <td>{{event.end_date | date : 'short' }}</td>
+        </tr>
+        <thead>
+          <tr>
+            <th class="text-center">Number</th>
+            <th class="text-center">Name</th>
+            <th class="text-center">Descripiton</th>
+            <th class="text-center">Category</th>
+            <th class="text-center">Start</th>
+            <th class="text-center">End</th>
+          </tr>
+        </thead>
+
+      </table>
+    </div>
+  </div>
+
+  <div class="row no-gutter">
+    <div align="center">
+      <ul class="events-pagination" uib-pagination total-items="count" ng-model="currentPage" items-per-page="20" previous-text="&#xf060;"
+        next-text="&#xf061;" ng-change="pageChanged()" ng-show="showPage" max-size="10" boundary-link-numbers="true">
+      </ul>
+    </div>
+  </div>
+</div>

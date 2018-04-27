@@ -1,0 +1,81 @@
+<div resizable-modal id="resizable">
+  <div class="modal-header">
+    <h3 class="modal-title">
+      <i class="fas fa-binoculars fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;Event Detail
+      <button class="btn btn-success pull-right" type="button" ng-click="save(event.number)" ng-hide="origin_events.has(event.number)">
+        <i class="fas fa-plus-circle" aria-hidden="true"></i>&nbsp;Add to Your Events
+      </button>
+      &nbsp;&nbsp;
+      <button class="btn btn-danger pull-right" type="button" ng-click="remove(event.number)" ng-show="origin_events.has(event.number)">
+        <i class="fas fa-times" aria-hidden="true"></i>&nbsp;Remove from Your Events
+      </button>
+    </h3>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-responsive table-condensed table-striped">
+            <tr>
+              <td><strong>Number</strong></td>
+              <td>{{event.number}}</td>
+            </tr>
+            <tr>
+              <td><strong>Name</strong></td>
+              <td>{{event.name}}</td>
+            </tr>
+
+            <tr>
+              <td><strong>Description</strong></td>
+              <td>{{event.description}}</td>
+            <tr>
+              <td><strong>Start Date</strong></td>
+              <td>{{event.start_date | date : 'medium'}}</td>
+            </tr>
+            <tr>
+              <td><strong>End Date</strong></td>
+              <td>{{event.end_date | date : 'medium' }}</td>
+            </tr>
+            <tr>
+              <td><strong>Players</strong></td>
+              <td>{{event.players }}</td>
+            </tr>
+            <tr>
+              <td><strong>Price</strong></td>
+              <td>{{event.price}}</td>
+            </tr>
+
+            <tr ng-show="event.game_manufacture">
+              <td><strong>Game Manufacture</strong></td>
+              <td>{{event.game_manufacture}}</td>
+            </tr>
+
+            <tr ng-show="event.game_system">
+              <td><strong>Game System</strong></td>
+              <td>{{event.game_system}}</td>
+            </tr>
+
+            <tr ng-show="event.gaming_group">
+              <td><strong>Company or Gaming Group</strong></td>
+              <td>{{event.gaming_group}}</td>
+            </tr>
+
+            <tr ng-show="event.gamemaster">
+              <td><strong>Game Master</strong></td>
+              <td>{{event.gamemaster}}</td>
+            </tr>
+
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+
+
+    <button class="btn btn-primary" type="button" ng-click="close()">
+      <i class="fas fa-times" aria-hidden="true"></i>&nbsp;Close
+    </button>
+  </div>
+</div>

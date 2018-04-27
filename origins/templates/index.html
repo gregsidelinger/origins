@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" >
+  <head>
+    <meta charset="utf-8">
+    <title>Origins</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+  <link rel="stylesheet" href="{% static 'bower_components/font-awesome/web-fonts-with-css/css/fontawesome-all.min.css' %}">
+  <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.css' %}">
+  <link rel="stylesheet" href="{% static 'app/css/app.css' %}">
+
+  <script src="{% static 'bower_components/angular/angular.js' %}"></script>
+  <script src="{% static 'bower_components/angular-route/angular-route.js' %}"></script>
+  <script src="{% static 'bower_components/angular-resource/angular-resource.js' %}"></script>
+  <script src="{% static 'bower_components/angular-bootstrap/ui-bootstrap-tpls.js' %}"></script>
+
+<!-- angular-loading-bar for loading bar -->
+<link rel="stylesheet" href="{% static 'bower_components/angular-loading-bar/build/loading-bar.min.css' %}" type="text/css" media="all" />
+<script type="text/javascript" src="{% static 'bower_components/angular-loading-bar/build/loading-bar.min.js' %}"></script>
+
+<!-- a0-angular-storage for using local or session storage -->
+<script type="text/javascript" src="{% static 'bower_components/a0-angular-storage/dist/angular-storage.min.js' %}"></script>
+
+
+  <script src="{% static 'app/js/app.js' %}"></script>
+  <script src="{% static 'app/js/controllers.js' %}"></script>
+  <script src="{% static 'app/js/filters.js' %}"></script>
+  <script src="{% static 'app/js/services.js' %}"></script>
+
+
+<script src="{% static 'bower_components/moment/min/moment-with-locales.min.js' %}"></script>
+<script src="{% static 'bower_components/moment-picker/dist/angular-moment-picker.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'bower_components/moment-picker/dist/angular-moment-picker.min.css' %}">
+
+
+  </head>
+
+  <body ng-app="originsApp" ng-controller="OriginsApplicationCtrl">
+
+  <div class="view-container">
+    <div ng-view class="view-frame"></div>
+  </div>
+
+  </body>
+</html>
