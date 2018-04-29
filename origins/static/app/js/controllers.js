@@ -15,9 +15,17 @@ originsControllers.controller('OriginsApplicationCtrl', function ($rootScope, $s
 
 originsControllers.controller('EventListCtrl', function ($rootScope, $scope, $uibModal, store, Event, initData) {
 
-	$scope.switch_button = "Show Your Events";
-    $scope.all_events = true;
-    $scope.your_events = false;
+  $scope.view = "all_events"
+  $scope.filters = {
+    name: "",
+    end_date: "",
+    start_date: "",
+    category: "",
+    description: "",
+    number: ""
+  }
+  $scope.minDate =  new Date(2018,5,13,8);
+  $scope.maxDate =  new Date(2018,5,17,18);
 
 	var origins_events = store.get('origins_events');
     console.debug(origins_events);
@@ -29,7 +37,6 @@ originsControllers.controller('EventListCtrl', function ($rootScope, $scope, $ui
         console.debug(origins_events);
 		$scope.origins_events = new Set(origins_events);
     } 
-    console.debug($scope.origins_events);
    
     $scope.results = initData.results;
     $scope.count = initData.count;
@@ -40,26 +47,18 @@ originsControllers.controller('EventListCtrl', function ($rootScope, $scope, $ui
     }
 
 
-	$scope.end_date = "";
-	$scope.start_date = "";
-	$scope.name_filter = "";
-	$scope.category_filter= "";
-	$scope.description_filter= "";
-  $scope.number_filter = "";
-  $scope.minDate =  new Date(2018,5,13,8);
-  $scope.maxDate =  new Date(2018,5,17,18);
 
   $scope.$on('events.query', function () {
-    if($scope.all_events){
+    if($scope.view =="all_events"){
       Event.query({
         page: $scope.currentPage,
         search: $scope.search,
-        number__icontains: $scope.number_filter,
-        name__icontains: $scope.name_filter,
-        category__icontains: $scope.category_filter,
-        description__itcontains: $scope.description_filter,
-        start_date__gte: $scope.start_date,
-        end_date__lte: $scope.end_date
+        number__icontains: $scope.filters.number,
+        name__icontains: $scope.filters.name,
+        category__icontains: $scope.filters.category,
+        description__itcontains: $scope.filters.description,
+        start_date__gte: $scope.filters.start_date,
+        end_date__lte: $scope.filters.end_date
       }).$promise.then(function (data) {
           $scope.results = data.results;
           $scope.count = data.count;
@@ -69,7 +68,24 @@ originsControllers.controller('EventListCtrl', function ($rootScope, $scope, $ui
             $scope.showPage = false;
           }
       });
-    } else {
+
+    } else if($scope.view =="distinctnames"){
+      Event.distinctnames({
+        page: $scope.currentPage,
+        search: $scope.search,
+        name__icontains: $scope.filters.name,
+        category__icontains: $scope.filters.category
+      }).$promise.then(function (data) {
+          $scope.results = data.results;
+          $scope.count = data.count;
+          if (data.next || data.previous) {
+            $scope.showPage = true;
+          } else {
+            $scope.showPage = false;
+          }
+      });
+
+    } else if ($scope.view == "your_events") {
       $scope.results = []
       $scope.showPage = false;
       angular.forEach($scope.origins_events, function(item){
@@ -117,16 +133,7 @@ originsControllers.controller('EventListCtrl', function ($rootScope, $scope, $ui
   }
 
   $scope.switch_view= function() {
-    console.debug("switch_view");
-    if($scope.all_events){
-      $scope.all_events = false;
-      $scope.your_events = true;
-      $scope.switch_button = "Show All Events";
-    } else {
-      $scope.all_events = true;
-      $scope.your_events = false;
-      $scope.switch_button = "Show Your Events";
-    }
+    console.debug($scope.view);
     $scope.$broadcast("events.query");
   }
 
@@ -141,6 +148,24 @@ originsControllers.controller('EventListCtrl', function ($rootScope, $scope, $ui
     console.debug(origins_events);
     store.set('origins_events', Array.from(origins_events));
   };
+
+  $scope.showDistinctNameEvent = function(event) {
+    console.debug("Looking up events for: " + event.name)
+    $scope.view="all_events";
+
+    Event.query({
+      page: 1,
+      name: event.name
+    }).$promise.then(function (data) {
+        $scope.results = data.results;
+        $scope.count = data.count;
+        if (data.next || data.previous) {
+          $scope.showPage = true;
+        } else {
+          $scope.showPage = false;
+        }
+    });
+  }
 
 })
 

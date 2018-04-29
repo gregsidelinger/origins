@@ -1,0 +1,106 @@
+  <div class="row no-gutter top25">
+    <div class="col-md-offset-1 col-md-10 col-md-offset-1 panel panel-primary" style="padding: 0;">
+      <table id="event-table" class="table table-responsive table-hover text-center" style="margin:0;">
+        <thead>
+          <tr ng-hide="view=='your_events'">
+          <th>
+              <div class="input-group">
+                <input type="text" placeholder="Number Filter" class="form-control" ng-model="filters.number" />
+                  <span ng-show="filters.number.length" class="input-group-addon btn" ng-click="filters.number=''">
+                    <i class="fas fa-times" aria-hidden="true" ></i>
+                  </span>
+                </input>
+              </div>
+            </th>
+            <th class="text-center">
+              <div class="input-group">
+                <input type="text" placeholder="Name Filter" class="form-control" ng-model="filters.name" />
+                  <span ng-show="filters.name.length" class="input-group-addon btn" ng-click="filters.name=''">
+                    <i class="fas fa-times" aria-hidden="true" ></i>
+                  </span>
+                </input>
+              </div>
+            </th>
+            <th class="text-center">
+              <div class="input-group">
+                <input type="text" placeholder="Description Filter" class="form-control" ng-model="filters.description" />
+                <span ng-show="filters.description.length" class="input-group-addon btn" ng-click="filters.description=''">
+                  <i class="fas fa-times" aria-hidden="true" ></i>
+                </span>
+              </div>
+            </th>
+            <th class="text-center">
+              <div class="input-group">
+                <input type="text" list="categories" ng-model="filters.category" placeholder="Catagory Filter" class="form-control"/>
+                <datalist id="categories">
+                  <option>RPG</option>
+                  <option>LARP</option>
+                  <option>Tabletop</option>
+                  <option>Miniature</option>
+                  <option>CCG/TCG</option>
+                  <option>Origins University</option>
+                  <option>Eclectics</option>
+                </datalist>
+                <span ng-show="filter.category.length" class="input-group-addon btn" ng-click="filters.categoryr=''">
+                  <i class="fas fa-times" aria-hidden="true" ></i>
+                </span>
+
+              </div>
+            </th>
+            <th class="text-center">
+              <div class="input-group" format="L HH:00" moment-picker="filters.start_date"
+                   min-view="month" max-view="hour" today="false" min-date="minDate" max-date="maxDate">
+                <input id="start_date" class="form-control" ng-model="filters.start_date"
+                       ng-model-options="{ updateOn: 'blur' }" placeholder="Filter Date">
+                  <span class="input-group-addon"><i class="fas fa-calendar" aria-hidden="true"></i></span>
+                </input>
+                <span ng-show="filters.start_date.length" class="input-group-addon btn" ng-click="filters.start_date=''">
+                    <i class="fas fa-times" aria-hidden="true" ></i>
+                </span>
+              </div>
+            </th>
+            <th class="text-center">
+              <div class="input-group" format="L HH:00" moment-picker="filters.end_date"
+                   min-view="month" max-view="hour" today="false" min-date="minDate" max-date="maxDate"> 
+                <input id="end_date" class="form-control" ng-model="filters.end_date"
+                       ng-model-options="{ updateOn: 'blur' }" placeholder="Filter Date">
+                  <span class="input-group-addon"><i class="fas fa-calendar" aria-hidden="true"></i></span>
+                </input>
+                <span ng-show="filters.end_date.length" class="input-group-addon btn" ng-click="filters.end_date=''">
+                    <i class="fas fa-times" aria-hidden="true" ></i>
+                </span>
+              </div>
+            </th>
+          </tr>
+          <tr>
+            <th class="text-center">Number</th>
+            <th class="text-center">Name</th>
+            <th class="text-center">Descripiton</th>
+            <th class="text-center">Category</th>
+            <th class="text-center">Start</th>
+            <th class="text-center">End</th>
+          </tr>
+        </thead>
+
+        <tr ng-repeat="event in results" ng-click="showEvent(event)">
+          <td>{{event.number}}</td>
+          <td>{{event.name | strtruncate:false:20 }}</a></td>
+          <td>{{event.description | strtruncate:false:30 }}</td>
+          <td>{{event.category}}</td>
+          <td>{{event.start_date | date : 'short'}}</td>
+          <td>{{event.end_date | date : 'short' }}</td>
+        </tr>
+        <thead>
+          <tr>
+            <th class="text-center">Number</th>
+            <th class="text-center">Name</th>
+            <th class="text-center">Descripiton</th>
+            <th class="text-center">Category</th>
+            <th class="text-center">Start</th>
+            <th class="text-center">End</th>
+          </tr>
+        </thead>
+
+      </table>
+    </div>
+  </div>

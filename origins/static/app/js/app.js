@@ -35,26 +35,6 @@ originsApp.config(['$routeProvider',
                             })
                       }
            }
-      }).
-      when('/applications/:applicationId/', {
-        templateUrl: 'app/partials/application-detail.html',
-        controller: 'ApplicationDetailCtrl',
-        resolve: {
-          application: function($route, Application) {
-            return Application.get({ applicationId: $route.current.params.applicationId })
-                              .$promise
-                              .then(function (app) {
-                                 return app;
-                              })
-          },
-          jvmList: function ($route, JVM) {
-            return JVM.query({ applicationId: $route.current.params.applicationId })
-                      .$promise
-                      .then(function (jvms) {
-                        return jvms;
-                      })
-          }
-        }
       })
   }
 ]);

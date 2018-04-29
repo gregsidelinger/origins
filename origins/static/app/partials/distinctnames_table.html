@@ -1,0 +1,48 @@
+<div class="row no-gutter top25">
+  <div class="col-md-offset-1 col-md-10 col-md-offset-1 panel panel-primary" style="padding: 0;">
+    <table id="event-table" class="table table-responsive table-hover text-center" style="margin:0;">
+            <thead>
+                    <tr>
+                      <th class="text-center">
+                        <form ng-submit="filterEvents()">
+
+                        <div class="input-group" >
+                          <input type="text" placeholder="Name Filter" class="form-control" ng-model="filters.name">
+                            <span class="input-group-addon btn" ng-click="filters.name=''">
+                              <i class="fas fa-times" aria-hidden="true" ></i>
+                            </span>
+                          </input>
+                          <input type="text" list="categories" class="form-control" ng-model="filters.category" placeholder="Catagory Filter" class="form-control">
+                          <datalist id="categories">
+                            <option>RPG</option>
+                            <option>LARP</option>
+                            <option>Tabletop</option>
+                            <option>Miniature</option>
+                            <option>CCG/TCG</option>
+                            <option>Origins University</option>
+                            <option>Eclectics</option>
+                          </datalist>
+                          <span class="input-group-addon btn" ng-click="filters.category=''">
+                            <i class="fas fa-times" aria-hidden="true" ></i>
+                          </span>
+                        </input>
+          
+                        </div>
+                    </form>
+                      </th>
+                    </tr>
+                    <tr>
+                      <th class="text-center">Name</th>
+                    </tr>
+                  </thead>
+      <tr ng-repeat="event in results" ng-click="showDistinctNameEvent(event)">
+        <td>{{event.name }}</a></td>
+      </tr>
+      <thead>
+        <tr>
+        <th class="text-center">Name</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</div>

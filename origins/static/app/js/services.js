@@ -23,7 +23,23 @@ eventServices.factory('Event', ['$resource',
             end_date__lte: '@end_date'
           },
           isArray: false
+        },
+        distinctnames: {
+          url: 'api/events/distinctnames/',
+          params: {
+            id: '@eventId',
+            page: '@pageNum',
+            page_size: 20,
+            search: '@search',
+            name__icontains: '@name',
+            category__icontains: '@category',
+            description__icontains: '@description',
+            start_date__gte: '@start_date',
+            end_date__lte: '@end_date'
+          },
+          isArray: false
         }
+
       }, {
         stripTrailingSlashes: false
       });
