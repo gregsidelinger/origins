@@ -57,7 +57,7 @@ class EventViewSet(viewsets.ModelViewSet):
         """ Return a list of distint event names """
         queryset = self.get_queryset()
         queryset = self.filter_queryset(queryset);
-        queryset = queryset.values('name').distinct()
+        queryset = queryset.values('name').distinct().order_by('name')
 
         page = self.paginate_queryset(queryset)
         if page is not None:
