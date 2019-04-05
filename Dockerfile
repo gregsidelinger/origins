@@ -16,6 +16,7 @@ RUN python manage.py migrate
 #    && python manage.py runscript load_csv \
 #    && rm *.csv
 
-RUN python manage.py runscript load_xlsx
+#RUN python manage.py runscript load_csv
+RUN python manage.py runscript load_xlsx_2019
 
 CMD [ "gunicorn", "--config", "/opt/origins/gunicorn.conf", "origins.wsgi" ]
