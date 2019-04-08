@@ -1,6 +1,6 @@
 
 
-IMAGE := gregsidelinger/orgins
+IMAGE := gregsidelinger/origins
 VERSION := latest
 
 .PHONY: build push 
