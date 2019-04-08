@@ -11,12 +11,12 @@ COPY . .
 
 RUN python manage.py migrate
 
-#RUN apk add wget \
-#    && wget http://originsgamefair.com/wp-content/uploads/Event-Sheet-4-23-18.csv \
-#    && python manage.py runscript load_csv \
+RUN apk add curl \
+    && curl "https://docs.google.com/spreadsheets/d/1b2yJW-vDf7VG_aHPUyRFphESVHReXEXexfSF1YPy3XM/export?gid=0&format=xlsx" -o  events.xlsx
+    && python manage.py runscript load_xlsx_2019
 #    && rm *.csv
 
 #RUN python manage.py runscript load_csv
-RUN python manage.py runscript load_xlsx_2019
+#RUN python manage.py runscript load_xlsx_2019
 
 CMD [ "gunicorn", "--config", "/opt/origins/gunicorn.conf", "origins.wsgi" ]

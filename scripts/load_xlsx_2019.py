@@ -5,8 +5,8 @@ import datetime
 
 def run():
     events = set()
-    print("Loading Origins Game Fair 2019 - Event Grid - Updated 4_4_19.xlsxinto DB")
-    wb = load_workbook(filename='Origins Game Fair 2019 - Event Grid - Updated 4_4_19.xlsx', read_only=True)
+    print("Loading events.xlsx DB")
+    wb = load_workbook(filename='events.xlsx', read_only=True)
     ws = wb.get_active_sheet()
 
     first_row = True
@@ -16,12 +16,12 @@ def run():
                 first_row = False
                 continue
             try:
-                fl
-                event = Event.objects.get(number=row[2].value)
+                if row[2].value:
+                    event = Event.objects.get(number=row[2].value)
             except:
                 #event = Event(number=row[0].value)
-                print("New Event %s" % counter)
-                event = Event(number=counter)
+                print("New Event %s")
+                event = Event(number=row[2].value)
             #events.add(row[0].value)
             event.name = row[1].value
             if not event.name:
