@@ -10,7 +10,6 @@ def run():
     ws = wb.get_active_sheet()
 
     first_row = True
-    counter = 1
     for row in ws.rows:
             if first_row:
                 first_row = False
@@ -18,11 +17,13 @@ def run():
             try:
                 if row[2].value:
                     event = Event.objects.get(number=row[2].value)
+                else:
+                    event = Event()
             except:
                 #event = Event(number=row[0].value)
                 print("New Event %s")
                 event = Event(number=row[2].value)
-            #events.add(row[0].value)
+            events.add(row[0].value)
             event.name = row[1].value
             if not event.name:
                 continue
@@ -47,11 +48,11 @@ def run():
             event.game_system = row[14].value
             try:
                 event.save()
-                print("Saved %s name=%s" % (counter, event.name))
-                counter += 1
+                print("Saved name=%s" % (event.name))
 
             except:
-                print("name=%s, description=%s, ", event.name, event.description)
+                print("Failed to save event name=%s" % (event.name))
+            event.save()
 
 
     #for event in Event.objects.exclude(number__in=events):

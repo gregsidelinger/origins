@@ -12,7 +12,7 @@ COPY . .
 RUN python manage.py migrate
 
 RUN apk add curl \
-    && curl "https://docs.google.com/spreadsheets/d/1b2yJW-vDf7VG_aHPUyRFphESVHReXEXexfSF1YPy3XM/export?gid=0&format=xlsx" -o  events.xlsx
+    && curl "https://docs.google.com/spreadsheets/d/1b2yJW-vDf7VG_aHPUyRFphESVHReXEXexfSF1YPy3XM/export?gid=0&format=xlsx" -o  events.xlsx \
     && python manage.py runscript load_xlsx_2019
 #    && rm *.csv
 
