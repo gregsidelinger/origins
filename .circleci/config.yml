@@ -7,7 +7,7 @@ workflows:
   version: 2
   origins:
     jobs:
-      - Docker build:
+      - build:
           context: DockerHub
 
 
