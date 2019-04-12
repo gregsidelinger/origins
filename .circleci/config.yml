@@ -3,16 +3,27 @@
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 #
 
+orbs:
+  docker-publish: circleci/docker-publish@0.1.6
+
 workflows:
   version: 2
   origins:
     jobs:
       - build:
+
+      - docker-publish/publish:
+          image: gregsidelinger/origins
+          tag: latest
+          requires:
+            - build
           context: DockerHub
+
+
       - deploy:
           context: DigitalOcean
           requires:
-            - build
+            - docker-publish/publish
 
 version: 2
 jobs:
@@ -76,6 +87,7 @@ jobs:
       # specify the version you desire here
       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
       - image: lachlanevenson/k8s-kubectl:v1.10.3
+
     working_directory: ~/repo
 
     steps:
