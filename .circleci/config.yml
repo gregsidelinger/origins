@@ -50,6 +50,16 @@ jobs:
             . venv/bin/activate
             python manage.py test
 
+      - setup_remote_docker:
+          docker_layer_caching:
+
+      - run:
+          name: Docker build
+          command: |
+            docker build -t gregsidelinger/origins:$CIRCLE_BRANCH .
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker push gregsidelinger/origins:$CIRCLE_BRANCH
+
       - store_artifacts:
           path: test-reports
           destination: test-reports
