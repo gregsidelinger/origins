@@ -82,7 +82,7 @@ jobs:
       - run:
           name: Kube Deploy
           command: |
-            echo "${KUBE_CONFIG}" | base64 --decode >> kube.conf
+            echo "${KUBE_CONFIG}" | base64 -d >> kube.conf
             kubectl --kubeconfig kube.conf apply -f kubernetes.yaml
 
 
