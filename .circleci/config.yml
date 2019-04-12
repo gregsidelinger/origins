@@ -10,8 +10,6 @@ workflows:
   version: 2
   origins:
     jobs:
-      - build:
-
       - docker-publish/publish:
           image: gregsidelinger/origins
           tag: latest
