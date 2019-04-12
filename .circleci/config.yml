@@ -9,8 +9,8 @@ workflows:
     jobs:
       - build:
           context: DockerHub
-
-
+      - deploy:
+          context: DigitalOcean
 
 version: 2
 jobs:
@@ -69,6 +69,17 @@ jobs:
             docker build -t gregsidelinger/origins:$CIRCLE_BRANCH .
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker push gregsidelinger/origins:$CIRCLE_BRANCH
+  deploy:
+    docker:
+      # specify the version you desire here
+      # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
+      - image: lachlanevenson/k8s-kubectl:v1.10.3
+      - run:
+          name: Kube Deploy
+          command: |
+            echo "${KUBE_CONFIG}" | base64 --decode >> kube.conf
+            kubectl --kubeconfig kube.conf apply -f kubernetes.yaml
+
 
       - store_artifacts:
           path: test-reports
