@@ -11,6 +11,8 @@ workflows:
           context: DockerHub
       - deploy:
           context: DigitalOcean
+          requires:
+            - build
 
 version: 2
 jobs:
