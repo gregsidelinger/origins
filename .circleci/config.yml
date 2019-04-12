@@ -2,6 +2,16 @@
 #
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 #
+
+workflows:
+  version: 2
+  origins:
+    jobs:
+      - Docker build:
+          context: DockerHub
+
+
+
 version: 2
 jobs:
   build:
