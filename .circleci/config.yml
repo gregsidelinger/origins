@@ -103,7 +103,8 @@ jobs:
             echo "${KUBE_CONFIG}" | base64 -d >> kube.conf
             ls  -l
             find .
-            curl https://raw.githubusercontent.com/helm/helm/master/scripts/get | bash -s --version v2.13.1
+            curl https://raw.githubusercontent.com/helm/helm/master/scripts/get -o install-helm.sh
+            bash install-helm.sh  --version v2.13.1
             #kubectl --kubeconfig kube.conf apply -f kubernetes/origins.yaml
             helm upgrade --install --atomic origins charts --namespace=default -f values/do.yaml
 
