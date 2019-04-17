@@ -14,7 +14,7 @@ workflows:
 
       - docker-publish/publish:
           image: gregsidelinger/origins
-          tag: latest
+          tag: $CIRCLE_SHA1
           requires:
             - tests
           context: DockerHub
@@ -106,7 +106,7 @@ jobs:
             curl https://raw.githubusercontent.com/helm/helm/master/scripts/get -o install-helm.sh
             bash install-helm.sh  --version v2.13.1
             #kubectl --kubeconfig kube.conf apply -f kubernetes/origins.yaml
-            helm --kubeconfig kube.conf upgrade --install --atomic origins charts/origins --namespace=default -f values/do.yaml
+            helm --kubeconfig kube.conf upgrade --install --atomic origins charts/origins --namespace=default -f values/do.yaml --set image.tag $CIRCLE_SHA1.
 
 
       - store_artifacts:
