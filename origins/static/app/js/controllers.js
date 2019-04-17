@@ -24,8 +24,8 @@ originsControllers.controller('EventListCtrl', function ($rootScope, $scope, $ui
     description: "",
     number: ""
   }
-  $scope.minDate =  new Date(2018,5,13,8);
-  $scope.maxDate =  new Date(2018,5,17,18);
+  $scope.minDate =  new Date(2019,5,12,8);
+  $scope.maxDate =  new Date(2018,5,16,18);
 
 	var origins_events = store.get('origins_events');
     console.debug(origins_events);
@@ -151,8 +151,17 @@ originsControllers.controller('EventListCtrl', function ($rootScope, $scope, $ui
 
   $scope.showDistinctNameEvent = function(event) {
     console.debug("Looking up events for: " + event.name)
+    $scope.filters.category = "";
+    //$scope.search = angular.copy(event.name);
+    $scope.filters.name = angular.copy(event.name);
     $scope.view="all_events";
 
+
+    $scope.currentPage = 1;
+    //$scope.search = angular.copy($scope.filter);
+    $scope.$broadcast("events.query");
+
+    /*
     Event.query({
       page: 1,
       name: event.name
@@ -165,6 +174,7 @@ originsControllers.controller('EventListCtrl', function ($rootScope, $scope, $ui
           $scope.showPage = false;
         }
     });
+  */
   }
 
 })
