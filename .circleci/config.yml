@@ -96,7 +96,7 @@ jobs:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: .
-      - kube-orb/install
+      - kubernetes/install
       - run:
           name: Kube Deploy
           command: |
