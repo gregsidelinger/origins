@@ -106,7 +106,7 @@ jobs:
             curl https://raw.githubusercontent.com/helm/helm/master/scripts/get -o install-helm.sh
             bash install-helm.sh  --version v2.13.1
             #kubectl --kubeconfig kube.conf apply -f kubernetes/origins.yaml
-            helm upgrade --install --atomic origins charts --namespace=default -f values/do.yaml
+            helm --kubeconfig kube.conf upgrade --install --atomic origins charts --namespace=default -f values/do.yaml
 
 
       - store_artifacts:
