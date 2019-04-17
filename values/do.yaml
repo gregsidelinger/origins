@@ -1,0 +1,15 @@
+
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: origins.jtks.net
+      paths:
+      - /
+  tls:
+    - secretName: origins-tls
+      hosts:
+        - origins.jtks.net

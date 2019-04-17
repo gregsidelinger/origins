@@ -4,6 +4,7 @@
 #
 orbs:
   docker-publish: circleci/docker-publish@0.1.6
+  kubernetes: circleci/kubernetes@0.2.0
 
 workflows:
   version: 2
@@ -79,13 +80,15 @@ jobs:
           root: .
           # Must be relative path from root
           paths:
-            - kubernetes
+            - values
+            - charts
 
   deploy:
     docker:
       # specify the version you desire here
       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
-      - image: lachlanevenson/k8s-kubectl:v1.10.3
+      #- image: lachlanevenson/k8s-kubectl:v1.10.3
+      - image: circleci/buildpack-deps:19.04-curl
 
     working_directory: ~/repo
 
@@ -93,13 +96,16 @@ jobs:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: .
+      - kube-orb/install
       - run:
           name: Kube Deploy
           command: |
             echo "${KUBE_CONFIG}" | base64 -d >> kube.conf
             ls  -l
             find .
-            kubectl --kubeconfig kube.conf apply -f kubernetes/origins.yaml
+            curl https://raw.githubusercontent.com/helm/helm/master/scripts/get | bash -s --version v2.13.1
+            #kubectl --kubeconfig kube.conf apply -f kubernetes/origins.yaml
+            helm upgrade --install --atomic origins charts --namespace=default -f values/do.yaml
 
 
       - store_artifacts:
