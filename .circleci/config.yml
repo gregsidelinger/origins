@@ -19,12 +19,14 @@ workflows:
             - tests
           context: DockerHub
 
+      - user-approval:
+        type: approval
 
       - deploy:
           type: approval # This key-value pair will set your workflow to a status of "On Hold"
           context: DigitalOcean
           requires:
-            - docker-publish/publish
+            - -user-approval
 
 version: 2.1
 jobs:
