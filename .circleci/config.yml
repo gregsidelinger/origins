@@ -25,7 +25,6 @@ workflows:
             - docker-publish/publish
 
       - deploy:
-          type: approval # This key-value pair will set your workflow to a status of "On Hold"
           context: DigitalOcean
           requires:
             - user-approval
