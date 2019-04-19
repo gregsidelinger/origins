@@ -28,7 +28,7 @@ workflows:
           type: approval # This key-value pair will set your workflow to a status of "On Hold"
           context: DigitalOcean
           requires:
-            - -user-approval
+            - user-approval
 
 version: 2.1
 jobs:
