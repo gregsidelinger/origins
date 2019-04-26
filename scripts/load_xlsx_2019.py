@@ -31,6 +31,7 @@ def run():
             #'6/13/2018 12:00'
             event.start_date = row[4].value
             #event.end_date = row[4].value
+            event.duration = row[5].value
             event.category = row[6].value
 
             if type(row[9].value) is int:

@@ -49,7 +49,7 @@ class EventViewSet(viewsets.ModelViewSet):
     filter_class = EventFilter
     #filter_fields = ('number', 'name', 'description', 'start_date', 'end_date', 'category', 'players', 'price',)
     search_fields = ('number', 'name', 'description')
-    ordering_fields = ('number', 'name', 'description', 'start_date', 'end_date', 'category', 'players', 'price',)
+    ordering_fields = ('number', 'name', 'description', 'start_date', 'end_date', 'duration', 'category', 'players', 'price',)
     ordering = ('start_date', 'number')
 
     @action(detail=False)

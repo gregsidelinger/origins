@@ -19,6 +19,7 @@ originsControllers.controller('EventListCtrl', function ($rootScope, $scope, $ui
   $scope.filters = {
     name: "",
     end_date: "",
+    duration: "",
     start_date: "",
     category: "",
     description: "",
@@ -58,7 +59,8 @@ originsControllers.controller('EventListCtrl', function ($rootScope, $scope, $ui
         category__icontains: $scope.filters.category,
         description__itcontains: $scope.filters.description,
         start_date__gte: $scope.filters.start_date,
-        end_date__lte: $scope.filters.end_date
+        //end_date__lte: $scope.filters.end_date,
+        duration__itcontains: $scope.filters.duration,
       }).$promise.then(function (data) {
           $scope.results = data.results;
           $scope.count = data.count;

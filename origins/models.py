@@ -8,6 +8,7 @@ class Event(models.Model):
     description = models.CharField(max_length=1024)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(null=True, blank=True)
+    duration = models.CharField(max_length=64, null=True, blank=True)
     
     category = models.CharField(max_length=1024, null=True, blank=True)
     players = models.IntegerField(null=True, blank=True)
