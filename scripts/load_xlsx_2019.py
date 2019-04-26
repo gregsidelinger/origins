@@ -11,18 +11,24 @@ def run():
 
     first_row = True
     for row in ws.rows:
+
             if first_row:
                 first_row = False
                 continue
+            number=row[2].value
             try:
-                if row[2].value:
-                    event = Event.objects.get(number=row[2].value)
+                number = int(number)
+            except:
+                number = ""
+            try:
+                if number:
+                    event = Event.objects.get(number=number)
                 else:
                     event = Event()
             except:
                 #event = Event(number=row[0].value)
                 print("New Event %s")
-                event = Event(number=row[2].value)
+                event = Event(number=number)
             events.add(row[0].value)
             event.name = row[1].value
             if not event.name:
