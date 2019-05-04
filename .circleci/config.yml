@@ -119,7 +119,8 @@ jobs:
             ls  -l
             find .
             pwd
-            /tmp/doctl kubernetes cluster kubeconfig save origins -t ${DO_TOKEN}
+            /tmp/doctl auth init  -t ${DO_TOKEN}
+            /tmp/doctl kubernetes cluster kubeconfig save origins
             kubectl config get-contexts
             kubectl config get-clusters
             kubectl config set-cluster do-nyc1-origins
