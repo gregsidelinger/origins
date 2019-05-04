@@ -113,11 +113,12 @@ jobs:
 
             curl https://raw.githubusercontent.com/helm/helm/master/scripts/get -o install-helm.sh
             bash install-helm.sh  --version v2.13.1
-            #curl -sL https://github.com/digitalocean/doctl/releases/download/v1.16.0/doctl-1.16.0-linux-amd64.tar.gz | tar -xzv -C /usr/local/bin
-            curl -sL https://github.com/digitalocean/doctl/releases/download/v1.16.0/doctl-1.16.0-linux-amd64.tar.gz | tar -xzv
+            curl -sL https://github.com/digitalocean/doctl/releases/download/v1.16.0/doctl-1.16.0-linux-amd64.tar.gz | tar -xzv -C /usr/local/bin
+            #curl -sL https://github.com/digitalocean/doctl/releases/download/v1.16.0/doctl-1.16.0-linux-amd64.tar.gz | tar -xzv
             ls  -l
             find .
-            ./doctl kubernetes cluster kubeconfig save origins -t ${DO_TOKEN}
+            pwd
+            doctl kubernetes cluster kubeconfig save origins -t ${DO_TOKEN}
             kubectl config get-contexts
             kubectl config get-clusters
             kubectl config set-cluster do-nyc1-origins
