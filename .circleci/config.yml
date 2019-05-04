@@ -118,6 +118,9 @@ jobs:
             ls  -l
             find .
             ./doctl kubernetes cluster kubeconfig save origins -t ${DO_TOKEN}
+            kubectl config current-context
+            kubectl config use-context do-nyc1-origins
+            kubectl config current-context
             #kubectl --kubeconfig kube.conf apply -f kubernetes/origins.yaml
             #helm --kubeconfig kube.conf upgrade --install --atomic origins charts/origins --namespace=default -f values/do.yaml --set image.tag=$CIRCLE_SHA1
             helm  upgrade --install --atomic origins charts/origins --namespace=default -f values/do.yaml --set image.tag=$CIRCLE_SHA1
