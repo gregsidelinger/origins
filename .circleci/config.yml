@@ -106,13 +106,18 @@ jobs:
       - kubernetes/install
       - run:
           name: Deploy via helm
+          environment:
+            DIGITALOCEAN_ENABLE_BETA: "1"
           command: |
-            echo "${KUBE_CONFIG}" | base64 -d >> kube.conf
+            #echo "${KUBE_CONFIG}" | base64 -d >> kube.conf
             ls  -l
             find .
             curl https://raw.githubusercontent.com/helm/helm/master/scripts/get -o install-helm.sh
             bash install-helm.sh  --version v2.13.1
+            curl -sL https://github.com/digitalocean/doctl/releases/download/v1.16.0/doctl-1.16.0-linux-amd64.tar.gz | tar -xzv -C /usr/local/bin
+            doctl kubernetes cluster kubeconfig save origins -t ${DO_TOKEN}
             #kubectl --kubeconfig kube.conf apply -f kubernetes/origins.yaml
-            helm --kubeconfig kube.conf upgrade --install --atomic origins charts/origins --namespace=default -f values/do.yaml --set image.tag=$CIRCLE_SHA1
+            #helm --kubeconfig kube.conf upgrade --install --atomic origins charts/origins --namespace=default -f values/do.yaml --set image.tag=$CIRCLE_SHA1
+            helm  upgrade --install --atomic origins charts/origins --namespace=default -f values/do.yaml --set image.tag=$CIRCLE_SHA1
 
 
