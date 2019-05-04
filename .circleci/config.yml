@@ -120,7 +120,6 @@ jobs:
             ./doctl kubernetes cluster kubeconfig save origins -t ${DO_TOKEN}
             kubectl config get-contexts
             kubectl config get-clusters
-            kubectl config current-context
             kubectl config set-cluster do-nyc1-origins
             kubectl config use-context do-nyc1-origins
             kubectl config current-context
